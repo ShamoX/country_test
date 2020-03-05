@@ -1,7 +1,12 @@
 FactoryBot.define do
   factory :country do
     to_create do |instance|
-      instance.attributes = Country.find_or_create_by(name: instance.name, code: instance.code).attributes
+      precedent_record = Country.find_by(code: instance.code) # find by all attributes involved in the uniqueness
+      if precedent_record
+        instance.id = precedent_record.id
+      else
+        instance.save!
+      end
       instance.reload
     end
 
