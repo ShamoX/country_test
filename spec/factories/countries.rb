@@ -7,5 +7,6 @@ FactoryBot.define do
 
     name { 'Canada' }
     code { 'CA' }
+    inhabitants { SecureRandom.rand(10..100_000_000) }
   end
 end
